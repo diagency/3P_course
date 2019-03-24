@@ -24,7 +24,7 @@ void generateTour(int tour_number){
         m = n;
     }
     if (tour_number == 2){
-        n = 4 * (rand() % 25);
+        n = (rand() % 99);
         m = n + 1;
     }
     if (tour_number == 3){
