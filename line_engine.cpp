@@ -1,10 +1,11 @@
+#include <iostream>
 #include <stdlib.h>
 #include <time.h>  
 #define TOUR 1
 
 using namespace std;
 
-int x, y, n, m, step;
+int x, y, n, m, step, winner;
 int A[100][100];
 
 string computer1(int tour_number){
@@ -16,7 +17,6 @@ string computer2(int tour_number){
 }
 
 void generateTour(int tour_number){
-    //TODO: initialize Area
     x = 0;
     y = 0;
     if (tour_number == 1){
@@ -29,7 +29,7 @@ void generateTour(int tour_number){
     }
     if (tour_number == 3){
         n = 2 * (rand() % 50) + 1;
-        n = 2 * (rand() % 50) + 1;
+        m = 2 * (rand() % 50) + 1;
     }
 }
 
@@ -40,13 +40,13 @@ bool stepIsValid(int row, int column){
 
 void makeStep(string direction){
     A[x][y] = 1;
-    if (direction == "left" && y > 0 && stepIsValid(x, y - 1))
+    if (direction == "west" && y > 0 && stepIsValid(x, y - 1))
         y -= 1;
     //TODO: implement
     A[x][y] = 2;
 }
 
-bool isPossibleToContinue(){
+bool isImpossibleToContinue(){
     //TODO: implement
     return true;
 }
@@ -55,10 +55,13 @@ int main(){
     step = 0;
     srand (time(NULL));
     generateTour(TOUR);
-    while (isPossibleToContinue()){
-        makeStep(computer1(step));
-        makeStep(computer2(step));
+    while (isImpossibleToContinue()){
+        if (step % 2 == 0)
+            makeStep(computer1(step));
+        else
+            makeStep(computer2(step));
         step++;
     }
+    winner = 2 - step;
     return 0;
 }
