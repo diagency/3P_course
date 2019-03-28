@@ -26,6 +26,7 @@ void applySettings(){
 }
 
 void generateTour(int tour_number){
+    tour = tour_number;
     x = 0;
     y = 0;
     if (tour_number == 1){
