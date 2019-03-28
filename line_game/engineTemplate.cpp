@@ -4,11 +4,10 @@
 #include <time.h>  
 #include <vector>
 #define MAXIMAL_AREA_SIZE 100
-#define MAXIMAL_STANDING_TIME 4
 
 using namespace std;
 
-int x, y, n, m, step = 0, tour = 1, Area[100][100];
+int x, y, n, m, step, tour, Area[100][100];
 string (*gamer1Step)(int ) = NULL, (*gamer2Step)(int ) = NULL;
 
 string computer1(int tour_number){
@@ -26,6 +25,7 @@ void applySettings(){
 }
 
 void generateTour(int tour_number){
+    tour = tour_number;
     x = 0;
     y = 0;
     if (tour_number == 1){
