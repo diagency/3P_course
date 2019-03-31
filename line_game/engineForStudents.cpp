@@ -10,6 +10,7 @@ using namespace std;
 
 int x, y, n, m, step = 0, winnerNumber = -1, lastGamer = -1, tour = 1, Area[100][100];
 string (*gamer1Step)(int ) = NULL, (*gamer2Step)(int ) = NULL;
+vector <string> steps;
 
 string computer1(int tour_number){
     return "east";
@@ -21,7 +22,7 @@ string computer2(int tour_number){
 
 void applySettings(){
     gamer1Step = &computer1;
-    gamer2Step = &computer2;
+    gamer2Step = &ekaterina2;
     tour = 1;
 }
 
@@ -131,6 +132,7 @@ int main(){
         } else {
             standingTime++;
         }
+        steps.push_back(currentStepResult);
         step++;
         printArea();
         char key = cin.get();
