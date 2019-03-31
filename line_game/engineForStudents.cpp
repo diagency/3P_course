@@ -137,7 +137,6 @@ int main(){
         printArea();
         char key = cin.get();
     }
-    
     winnerNumber = lastGamer;
     printResults();
     return 0;
