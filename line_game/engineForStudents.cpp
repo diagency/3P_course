@@ -22,7 +22,7 @@ string computer2(int tour_number){
 
 void applySettings(){
     gamer1Step = &computer1;
-    gamer2Step = &ekaterina2;
+    gamer2Step = &computer2;
     tour = 1;
 }
 
