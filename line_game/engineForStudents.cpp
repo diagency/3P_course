@@ -96,7 +96,7 @@ string gamerStepResult(int gamerNumber){
         return stepResult((*gamer2Step)(tour));
 }
 
-bool isImpossibleToContinue(){
+bool isPossibleToContinue(){
     return stepIsValid(x, y + 1) || stepIsValid(x + 1, y) || stepIsValid(x, y - 1) || stepIsValid(x - 1, y);
 }
 
@@ -124,7 +124,7 @@ int main(){
     string currentStepResult;
     int standingTime = 0;
     
-    while (isImpossibleToContinue() && standingTime < MAXIMAL_STANDING_TIME){
+    while (isPossibleToContinue() && standingTime < MAXIMAL_STANDING_TIME){
         currentStepResult = gamerStepResult(1 + step % 2);
         if (currentStepResult != "still"){
             lastGamer = 1 + step % 2;
