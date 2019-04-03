@@ -65,7 +65,7 @@ string gamerStepResult(int gamerNumber){
         return stepResult((*gamer2Step)(tour));
 }
 
-bool isImpossibleToContinue(){
+bool isPossibleToContinue(){
    // TODO: implement (вернуть true, если игра не может быть продолжена)
 }
 
@@ -82,7 +82,7 @@ int main(){
     applySettings();
     generateTour(tour);
     
-    for (step = 0; isImpossibleToContinue(); step++){
+    for (step = 0; isPossibleToContinue(); step++){
         string currentStep = gamerStepResult(1 + step % 2);
         printArea();
     }
