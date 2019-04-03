@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include <time.h>  
 #include <vector>
-#define MAXIMAL_AREA_SIZE 100
+#include <string>
+#define MAXIMAL_AREA_SIZE 12
 #define MAXIMAL_STANDING_TIME 4
 
 using namespace std;
 
-int x, y, n, m, step = 0, winnerNumber = -1, lastGamer = -1, tour = 1, Area[100][100];
+int x, y, n, m, step = 0, winnerNumber = -1, lastGamer = -1, tour = 1, Area[100][100], order;
 string gamer1Name = "Computer_1", gamer2Name = "Computer_2";
 vector <string> steps;
 string (*gamer1Step)(int ) = NULL, (*gamer2Step)(int ) = NULL;
@@ -29,17 +30,18 @@ void applySettings(){
     gamer1Step = &computer1;
     gamer2Step = &computer2;
     tour = 1;
+    order = 1;
 }
 
 void generateTour(int tour_number){
     x = 0;
     y = 0;
     if (tour_number == 1){
-        n = rand() % (MAXIMAL_AREA_SIZE - 4) + 4;
+        n = rand() % (MAXIMAL_AREA_SIZE - 6) + 6;
         m = n;
     }
     if (tour_number == 2){
-        n = rand() % (MAXIMAL_AREA_SIZE - 1);
+        n = rand() % (MAXIMAL_AREA_SIZE - 6) + 6;
         m = n + 1;
     }
     if (tour_number == 3){
@@ -101,12 +103,12 @@ string gamerStepResult(int gamerNumber){
         return stepResult((*gamer2Step)(tour));
 }
 
-bool isImpossibleToContinue(){
+bool isPossibleToContinue(){
     return stepIsValid(x, y + 1) || stepIsValid(x + 1, y) || stepIsValid(x, y - 1) || stepIsValid(x - 1, y);
 }
 
 void printAreaInFile(){
-    fout << "Area[" << step << "] = [";
+    fout << "Area[" << order << "][" << step << "] = [";
     for (int i = 0; i < n; i++){
         fout << "[";
         for (int j = 0; j < m; j++){
@@ -122,14 +124,13 @@ void printAreaInFile(){
 }
 
 void printGeneralInfoInFile(){
-    string tourName = "1";
-    tourName[0] = '0' + tour;
-    fout.open( "histories/" + tourName + "_" + gamer1Name + "_" + gamer2Name + ".txt");
-    fout << "n = " << n << endl;
-    fout << "m = " << m << endl;
-    fout << "gamer_name_1 = \"" << gamer1Name << "\"" << endl;
-    fout << "gamer_name_2 = \"" << gamer2Name << "\"" << endl;
-    fout << "Area = []" << endl; 
+    fout.open( "histories/" + to_string(order) + ".txt");
+    fout << "n[" << order << "] = " << n << endl;
+    fout << "m[" << order << "] = " << m << endl;
+    fout << "level[" << order << "] = " << tour << endl;
+    fout << "gamer_name_1[" << order << "] = \"" << gamer1Name << "\"" << endl;
+    fout << "gamer_name_2[" << order << "] = \"" << gamer2Name << "\"" << endl;
+    fout << "Area[" << order << "] = " << "[]" << endl; 
 }
 
 void printArea(){
@@ -148,8 +149,8 @@ void printResults(){
 }
 
 void printResultsInFile(){
-    fout << "Winner = " << winnerNumber << endl;
-    fout << "steps = [";
+    fout << "winner[" << order << "] = " << winnerNumber << endl;
+    fout << "steps[" << order << "] = [";
     for (int i = 0; i < steps.size() - 1; i++){
         fout << "\"" << steps[i] << "\", ";
     }
@@ -167,7 +168,7 @@ int main(){
     string currentStepResult;
     int standingTime = 0;
     
-    while (isImpossibleToContinue() && standingTime < MAXIMAL_STANDING_TIME){
+    while (isPossibleToContinue() && standingTime < MAXIMAL_STANDING_TIME){
         currentStepResult = gamerStepResult(1 + step % 2);
         if (currentStepResult != "still"){
             lastGamer = 1 + step % 2;
