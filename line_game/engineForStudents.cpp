@@ -50,6 +50,8 @@ void generateTour(int tour_number){
 }
 
 bool stepIsValid(int row, int column){
+    if (row == 0 && column == 0)
+        return false;
     if (row < 0 || column < 0 || row >= n || column >= m)
         return false;
     if (row > 0 && Area[row - 1][column] == 1)
